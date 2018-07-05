@@ -1,0 +1,146 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Umini"
+                    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf"
+                    xmlns:controlzEx="clr-namespace:ControlzEx"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <ResourceDictionary.MergedDictionaries>
+        <!-- Order is important -->
+        <ResourceDictionary Source="Colors.xaml"/>
+        <ResourceDictionary Source="Fonts.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+    <!-- Hoverless button-->
+    <Style TargetType="{x:Type Button}" x:Key="Hoverless">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+
+    <!-- Button using Material iconPack-->
+    <Style TargetType="{x:Type Button}" x:Key="TitleBarProfileButton" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}">
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Button Width="100" ToolTip="Resource name: MaterialDesignRaisedAccentButton" Content="{TemplateBinding Content}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource TitleHoverBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <!-- Button using Material iconPack-->
+    <Style TargetType="local:MaterialButton" x:Key="ButtonWithIconPack" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Foreground" Value="White"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MaterialButton">
+                    <Border BorderBrush="White" Background="Transparent">
+                        <materialDesign:PackIcon Kind="{TemplateBinding Kind}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="10"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource TitleHoverBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Play Button using Material iconPack-->
+    <Style TargetType="local:MaterialButton" x:Key="PlayButtonWithIconPack" BasedOn="{StaticResource ButtonWithIconPack}">
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MaterialButton">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}" Stroke="{TemplateBinding Foreground}" StrokeThickness="1"/>
+                        <materialDesign:PackIcon Kind="{TemplateBinding Kind}" Width="45" Height="45" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource TitleHoverBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- System Icon Button -->
+
+    <Style TargetType="{x:Type Button}" x:Key="SytemIconButton" BasedOn="{StaticResource Hoverless}">
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="Padding" Value="10"/>
+    </Style>
+
+
+    <!-- Window Control Button using Material iconPack-->
+    <Style TargetType="local:MaterialButton" x:Key="WindowsControlButtonWithIconPack" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Foreground" Value="White"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MaterialButton">
+                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                        <materialDesign:PackIcon Kind="{TemplateBinding Kind}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource TitleHoverBackgroundBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Window Close Button using Material iconPack -->
+    <Style TargetType="local:MaterialButton" x:Key="WindowsCloseButtonWithIconPack" BasedOn="{StaticResource WindowsControlButtonWithIconPack}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Red" />
+                <Setter Property="Foreground" Value="{StaticResource ForeGroundLightBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

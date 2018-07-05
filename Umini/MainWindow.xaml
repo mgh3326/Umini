@@ -1,0 +1,232 @@
+﻿<Window x:Class="Umini.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Umini"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+        xmlns:menu="clr-namespace:Player;assembly=Player"
+        mc:Ignorable="d"
+        Icon="Images/Logo/logo-small.png"
+        x:Name="AppWindow"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Title="Umini" Height="600" Width="1000" Loaded="AppWindow_Loaded"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}" Closing="AppWindow_Closing">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <!-- Outer border with the dropshadow margin-->
+                        <Border Padding="{Binding OuterMarginSize, FallbackValue=10}">
+
+                            <!-- Main window outline -->
+                            <Grid>
+                                <!-- Opacity mask for corners on grid -->
+                                <Border x:Name="Container"
+                                        Background="{StaticResource BackgroundLightBrush}"/>
+
+                                <!-- Window border and dropshadown -->
+                                <Border Background="{Binding ForegroundLightBrush, FallbackValue=White}">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2"/>
+                                    </Border.Effect>
+                                </Border>
+
+                                <!-- The Main window content -->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <!-- Title Bar -->
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=30}"/>
+                                        <!-- Window Content -->
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- TitleBar -->
+                                    <Grid Grid.Row="0" Background="{StaticResource TitleBackgroundDarkBrush}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="70"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="180"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" >
+                                            <Image Margin="10,5,0,0" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="92" Source="Images/Logo/UminiTitleWhite.png"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                            
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Panel.ZIndex="1000">
+                                            <local:MaterialButton Kind="Menu" Command="{Binding MenuCommand}" Style="{StaticResource WindowsControlButtonWithIconPack}"/>
+                                            <local:MaterialButton Kind="WindowMinimize" Command="{Binding MinimizeCommand}" Style="{StaticResource WindowsControlButtonWithIconPack}"/>
+                                            <local:MaterialButton Kind="WindowMaximize" Command="{Binding MaximizeCommand}" Style="{StaticResource WindowsControlButtonWithIconPack}"/>
+                                            <local:MaterialButton Kind="WindowClose" Command="{Binding CloseCommand}" Style="{StaticResource WindowsCloseButtonWithIconPack}"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <!-- Page Content -->
+                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
+                                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            CaptionHeight="{Binding TitleHeight}"
+            CornerRadius="0"
+            GlassFrameThickness="0"
+            />
+    </WindowChrome.WindowChrome>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="193*"/>
+            <ColumnDefinition Width="787*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="2" Margin="0,0,0,-0.4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- player layout -->
+            <Grid Background="{StaticResource TitleBackgroundDarkBrush}" Grid.ColumnSpan="2" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <!-- Title Bar -->
+                    <RowDefinition Height="0"/>
+                    <!-- Player -->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!-- Title area-->
+                <Grid Grid.Row="0">
+                    <StackPanel HorizontalAlignment="Left">
+                        <Button Panel.ZIndex="1000" Margin="70,-30,0,0" x:Name="btnProfile" Padding="0,0,0,0" Background="Yellow" BorderBrush="Yellow" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100" ToolTip="Resource name: MaterialDesignRaisedAccentButton" WindowChrome.IsHitTestVisibleInChrome="True" Height="18" Click="btnAccount_Click" materialDesign:RippleAssist.Feedback="#DD000000">
+                            Default
+                        </Button>
+                    </StackPanel>
+                    <Label x:Name="lbTitleBar" HorizontalAlignment="Center" Foreground="White" Height="30" Panel.ZIndex="1000" Margin="0,-30,0,0"/>
+                </Grid>
+                <!-- Player Area-->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <!-- Album art -->
+                        <ColumnDefinition Width="100"/>
+                        <!-- Player information-->
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Album art -->
+                    <Grid Grid.Column="0" >
+                        <Image x:Name="album" VerticalAlignment="Top" Width="100" Source="Images/Icons/music-album.png" />
+                    </Grid>
+                    <!-- Player information-->
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <!-- player information-->
+                            <RowDefinition Height="*"/>
+                            <!-- satus bar-->
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <!-- Player Buttons -->
+                                <ColumnDefinition Width="200"/>
+                                <!-- Play Information-->
+                                <ColumnDefinition Width="*"/>
+                                <!-- Setting -->
+                                <ColumnDefinition Width="300"/>
+                            </Grid.ColumnDefinitions>
+                            <!-- Player Buttons -->
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" VerticalAlignment="Center" Margin="10,0,0,0">
+                                    
+
+                                </Grid>
+                                <Grid Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,10">
+                                        <materialDesign:PackIcon Height="30" Width="30" Kind="VolumeHigh" Padding="20" materialDesign:ColorZoneAssist.Mode="Light" Foreground="White" Margin="0, 0, 20, 0"/>
+                                        <Slider x:Name="Slider_volume" Height="20" Width="130" HorizontalAlignment="Stretch" TickFrequency="0.01" Minimum="0" Maximum="1" Value="0.5" Foreground="White" MouseMove="Slider_volume_MouseMove" LostMouseCapture="Slider_volume_LostMouseCapture"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+                                    <local:MaterialButton Kind="SkipPrevious" Click="btn_Next_Click" Width="45" Height="45" Style="{StaticResource ButtonWithIconPack}" />
+                                    <local:MaterialButton Kind="Play" Click="btn_Play_Click" Style="{StaticResource PlayButtonWithIconPack}" />
+                                    <local:MaterialButton Kind="SkipNext" Click="btn_Prev_Click" Width="45" Height="45" Style="{StaticResource ButtonWithIconPack}" />
+                                    <local:MaterialButton Kind="Pause" Click="btn_Pause_Click" Width="45" Height="45" Style="{StaticResource ButtonWithIconPack}" />
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10">
+                                    <local:MaterialButton Kind="FileDocument" Width="30" Height="30" Style="{StaticResource ButtonWithIconPack}" Margin="0,0,10,0" Click="btnDetailMedia_Click"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Music Information -->
+                            <Grid Grid.Column="1" Grid.ColumnSpan="3">
+                            </Grid>
+                        </Grid>
+                        <!-- Status bar -->
+                        <Grid Grid.Row="1" Height="20">
+                            <Slider Foreground="White" x:Name="Slider_time" HorizontalAlignment="Left" VerticalAlignment="Top" Width="880" Margin="0,0,0,0" LostMouseCapture="Slider_time_LostMouseCapture" MouseMove="Slider_time_MouseMove"/>
+                        </Grid>
+                    </Grid>
+
+
+                </Grid>
+
+            </Grid>
+            <Grid Background="{StaticResource BackgroundLightBrush}" Grid.Column="0" Grid.Row="1" >
+                <!-- tree view -->
+                <StackPanel Orientation="Vertical">
+                    <TreeView x:Name="trvNowPlaying" TreeViewItem.Selected="trvNowPlaying_Selected">
+                        <TreeViewItem x:Name="tviNowPlaying" Header="Now Playing"/>
+                    </TreeView>
+                    <TreeView x:Name="trvPlaylist" TreeViewItem.Selected="trvPlaylistItem_Selected">
+                        <TreeViewItem x:Name="tviPlaylist" Header="PlayList" IsExpanded="True">
+                        </TreeViewItem>
+                    </TreeView>
+                    <TreeView x:Name="trvSideMenu" TreeViewItem.Selected="trvSideMenu_Selected">
+                        <TreeViewItem x:Name="tviSearch" Header="Search"/>
+                    </TreeView>
+                </StackPanel>
+                <!--<local:SideMenuListControl />-->
+            </Grid>
+            <!-- content area -->
+            <!-- 
+            <Frame Source="PlaylistPage.xaml" Grid.Column="1" Grid.Row="1"/>
+             -->
+
+            <Frame x:Name="frame" Background="LightGoldenrodYellow" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden">
+
+            </Frame>
+        </Grid>
+        <!--
+            <TextBox x:Name="txtVideoFullpath" HorizontalAlignment="Left" Height="18" TextWrapping="Wrap" VerticalAlignment="Top" Width="400" Margin="201,349,0,0"/>
+        -->
+    </Grid>
+</Window>
